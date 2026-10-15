@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Camino Mágico">
+  <rect width="32" height="32" rx="8" fill="#2B2155"/>
+  <circle cx="16" cy="16" r="11" fill="#E6B84C"/>
+  <circle cx="16" cy="16" r="6" fill="#E07A5F"/>
+</svg>

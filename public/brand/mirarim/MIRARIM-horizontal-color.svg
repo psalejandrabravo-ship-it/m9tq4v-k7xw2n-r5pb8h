@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 516 108" fill="none" role="img" aria-label="MIRARIM">
+  <title>MIRARIM</title>
+  <g stroke="#2B2155" stroke-width="9.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 86 V26 L52 74 L82 26 V86"/>
+    <path d="M108 26 V86"/>
+    <path d="M136 86 V26 H166 C190 26 200 37 200 48 C200 61 189 68 166 68 H136"/>
+    <path d="M164 68 L202 86"/>
+  </g>
+  <g stroke="#E07A5F" stroke-width="9.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M230 86 L262 26 L294 86"/>
+    <path d="M246 62 H278" stroke-width="7.6"/>
+  </g>
+  <circle cx="262" cy="47" r="5.15" fill="#E6B84C"/>
+  <g stroke="#2B2155" stroke-width="9.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M322 86 V26 H352 C376 26 386 37 386 48 C386 61 375 68 352 68 H322"/>
+    <path d="M350 68 L388 86"/>
+    <path d="M414 26 V86"/>
+    <path d="M440 86 V26 L470 74 L500 26 V86"/>
+  </g>
+</svg>
