@@ -9,6 +9,7 @@ import { useGame } from "@/lib/game/store";
 import type { AgeGroup, AvatarId, QuestionPack } from "@/lib/game/types";
 import { cn } from "@/lib/utils";
 import { QuestionsPanel } from "./QuestionsPanel";
+import { FullscreenButton } from "./FullscreenButton";
 import { Token } from "./Token";
 
 const AGES: { id: AgeGroup; icon: typeof Heart; caption: string }[] = [
@@ -52,27 +53,29 @@ export function SetupScreen() {
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[18vh] bg-gradient-to-b from-bg-deep/35 via-bg-deep/50 to-bg-deep" />
 
-      <button
-        type="button"
-        onClick={() => setCreditsOpen(true)}
-        aria-label="Acerca de"
-        className="pressable absolute left-3 top-3 z-20 flex min-h-11 items-center gap-2 rounded-full bg-bg-deep/85 px-3 text-sm font-semibold text-fg shadow-[0_0_0_1px_rgba(246,241,232,0.14)]"
-      >
-        <Info className="size-4" />
-        <span className="hidden sm:inline">Acerca de</span>
-      </button>
+      <div className="relative z-20 flex items-center justify-between gap-2 px-3 pt-3">
+        <button
+          type="button"
+          onClick={() => setCreditsOpen(true)}
+          aria-label="Acerca de"
+          className="pressable flex min-h-11 items-center gap-2 rounded-full bg-bg-deep/85 px-3 text-sm font-semibold text-fg shadow-[0_0_0_1px_rgba(246,241,232,0.14)]"
+        >
+          <Info className="size-4" />
+          <span className="hidden sm:inline">Acerca de</span>
+        </button>
+        <FullscreenButton />
+        <button
+          type="button"
+          onClick={() => setQuestionsOpen(true)}
+          className="pressable flex min-h-11 items-center gap-2 rounded-full bg-bg-deep/85 px-3 text-sm font-semibold text-fg shadow-[0_0_0_1px_rgba(246,241,232,0.14)]"
+        >
+          <ListPlus className="size-4" />
+          Mis preguntas
+        </button>
+      </div>
 
-      <button
-        type="button"
-        onClick={() => setQuestionsOpen(true)}
-        className="pressable absolute right-3 top-3 z-20 flex min-h-11 items-center gap-2 rounded-full bg-bg-deep/85 px-3 text-sm font-semibold text-fg shadow-[0_0_0_1px_rgba(246,241,232,0.14)]"
-      >
-        <ListPlus className="size-4" />
-        Mis preguntas
-      </button>
-
-      <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 pb-16 pt-14 sm:px-6 sm:pt-16">
-        <header className="rounded-2xl bg-bg-deep/80 px-4 py-5 text-center shadow-[0_0_0_1px_rgba(246,241,232,0.08)] backdrop-blur-sm">
+      <main className="relative z-10 mx-auto grid w-full max-w-[1600px] gap-4 px-4 pt-4 pb-10 sm:px-8 xl:grid-cols-2 xl:items-start xl:px-10">
+        <header className="rounded-2xl bg-bg-deep/80 px-4 py-5 text-center shadow-[0_0_0_1px_rgba(246,241,232,0.08)] backdrop-blur-sm xl:col-span-2">
           <p className="mb-1 text-xs font-semibold tracking-wide text-gold">Tablero psicoeducativo</p>
           <h1 className="font-display text-3xl font-semibold leading-tight text-fg sm:text-4xl">Camino Mágico</h1>
           <div className="mt-3 flex flex-col items-center gap-2">
@@ -189,7 +192,7 @@ export function SetupScreen() {
         <section className="rounded-2xl bg-surface p-4 text-fg shadow-[0_0_0_1px_rgba(246,241,232,0.08)] sm:p-5">
           <h2 className="font-display text-lg font-medium">Fichas</h2>
           <p className="mt-1 text-sm text-muted">No se piden nombres: cada jugador es su avatar.</p>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {slots.map((id, i) => (
               <button
                 key={i}
@@ -225,7 +228,7 @@ export function SetupScreen() {
             startAdventure();
           }}
           className={cn(
-            "pressable font-display mx-auto min-h-14 w-full max-w-md rounded-xl px-6 text-lg font-semibold",
+            "pressable font-display mx-auto min-h-14 w-full max-w-md rounded-xl px-6 text-lg font-semibold xl:col-span-2",
             canStart ? "bg-mirarim-coral text-mirarim-ink shadow-[0_8px_24px_rgba(224,122,95,0.28)]" : "bg-surface-2 text-muted",
           )}
         >

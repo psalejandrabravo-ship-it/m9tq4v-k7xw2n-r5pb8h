@@ -142,35 +142,65 @@
   }
 }
 
-/* Dice 3D cube */
+/* Dice 3D cube. Tumble 1.15s / settle 0.62s — store waits 1200ms + 700ms so the token moves after the spin ends. */
 .dice-scene {
-  width: 84px;
-  height: 84px;
-  perspective: 520px;
+  width: 104px;
+  height: 104px;
+  perspective: 640px;
+  display: block;
 }
 .dice-cube {
-  width: 84px;
-  height: 84px;
+  width: 104px;
+  height: 104px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1.45s cubic-bezier(0.17, 0.67, 0.22, 1.05);
+  transition: transform 0.62s cubic-bezier(0.17, 0.67, 0.22, 1.02);
+  display: block;
+}
+.dice-cube.is-rolling {
+  transition: transform 1.15s cubic-bezier(0.15, 0.6, 0.25, 1);
+}
+.dice-hit {
+  display: block;
+  border-radius: 22px;
+  padding: 2px;
+  cursor: pointer;
+}
+.dice-hit:disabled {
+  filter: none;
+  cursor: default;
+  opacity: 0.72;
+}
+.dice-ready {
+  animation: dice-invite 1.6s ease-in-out infinite;
+}
+@keyframes dice-invite {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px rgba(232, 197, 107, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px var(--color-gold),
+      0 0 18px 4px rgba(232, 197, 107, 0.55);
+  }
 }
 .dice-face {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, #fff8e8 0%, #f0d9a0 100%);
-  border-radius: 14px;
+  border-radius: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 12px;
+  padding: 14px;
   box-shadow:
     inset 0 0 0 3px #c9a227,
     0 8px 18px rgba(18, 14, 50, 0.35);
 }
 .dice-face .pip {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 999px;
   background: #2a2460;
   justify-self: center;
@@ -178,22 +208,22 @@
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 .dice-face[data-face="1"] {
-  transform: rotateY(0deg) translateZ(42px);
+  transform: rotateY(0deg) translateZ(52px);
 }
 .dice-face[data-face="6"] {
-  transform: rotateY(180deg) translateZ(42px);
+  transform: rotateY(180deg) translateZ(52px);
 }
 .dice-face[data-face="2"] {
-  transform: rotateY(90deg) translateZ(42px);
+  transform: rotateY(90deg) translateZ(52px);
 }
 .dice-face[data-face="5"] {
-  transform: rotateY(-90deg) translateZ(42px);
+  transform: rotateY(-90deg) translateZ(52px);
 }
 .dice-face[data-face="3"] {
-  transform: rotateX(90deg) translateZ(42px);
+  transform: rotateX(90deg) translateZ(52px);
 }
 .dice-face[data-face="4"] {
-  transform: rotateX(-90deg) translateZ(42px);
+  transform: rotateX(-90deg) translateZ(52px);
 }
 
 .token-halo {
@@ -497,6 +527,7 @@ button:disabled {
   .confetti-piece,
   .firework,
   .dice-cube,
+  .dice-ready,
   .token-halo,
   .cell-await {
     animation: none !important;

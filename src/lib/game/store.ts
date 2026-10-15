@@ -34,6 +34,11 @@ import { fisherYates, prefersReducedMotion, waitMs } from "@/lib/utils";
 
 export const STEP_MS = 620;
 export const STEP_PAUSE_MS = 140;
+/** Keep in sync with .dice-cube transition times in styles.css */
+const DICE_TUMBLE_MS = 1200;
+const DICE_SETTLE_MS = 700;
+
+let rollEpoch = 0;
 
 export type Overlay =
   | { type: "none" }
@@ -374,30 +379,32 @@ export const useGame = create<GameStore>((set, get) => {
       }
 
       const value = 1 + Math.floor(Math.random() * 6);
+      const reduced = prefersReducedMotion();
+      const epoch = ++rollEpoch;
       set({ rolling: true, turnState: "rolling", spinKey: get().spinKey + 1, diceValue: null });
       audio.playDice();
 
-      const duration = prefersReducedMotion() ? 80 : 1400 + Math.floor(Math.random() * 400);
-
       window.setTimeout(() => {
-        void (async () => {
-          set({ rolling: false, diceValue: value });
-          const fresh = get().players[get().currentIndex];
-          if (!fresh) return;
+        if (epoch !== rollEpoch) return;
+        set({ rolling: false, diceValue: value });
+        window.setTimeout(() => {
+          if (epoch !== rollEpoch || get().turnState !== "rolling") return;
+          void (async () => {
+            const fresh = get().players[get().currentIndex];
+            if (!fresh) return;
 
-          if (fresh.finished) {
-            await waitMs(prefersReducedMotion() ? 80 : 400);
-            promptQuestion(BOARD_SIZE);
-            return;
-          }
+            if (fresh.finished) {
+              promptQuestion(BOARD_SIZE);
+              return;
+            }
 
-          const dest = clampPos(fresh.position + value);
-          await waitMs(prefersReducedMotion() ? 40 : 200);
-          await animateMove(fresh.id, fresh.displayPosition, dest);
-          const after = get().players.find((p) => p.id === fresh.id)!;
-          await landOn(after, after.position, false);
-        })();
-      }, duration);
+            const dest = clampPos(fresh.position + value);
+            await animateMove(fresh.id, fresh.displayPosition, dest);
+            const after = get().players.find((p) => p.id === fresh.id)!;
+            await landOn(after, after.position, false);
+          })();
+        }, reduced ? 40 : DICE_SETTLE_MS);
+      }, reduced ? 80 : DICE_TUMBLE_MS);
     },
 
     continueQuestion: () => {
@@ -500,6 +507,7 @@ export const useGame = create<GameStore>((set, get) => {
       if (get().overlay.type === "reset") set({ overlay: { type: "none" } });
     },
     confirmReset: () => {
+      rollEpoch += 1;
       stopSpeaking();
       audio.stopMusic();
       const keep = get();

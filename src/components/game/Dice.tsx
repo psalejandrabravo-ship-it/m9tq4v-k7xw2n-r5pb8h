@@ -22,9 +22,11 @@ interface DiceProps {
   value: number | null;
   rolling: boolean;
   spinKey: number;
+  canRoll: boolean;
+  onRoll: () => void;
 }
 
-export function Dice({ value, rolling, spinKey }: DiceProps) {
+export function Dice({ value, rolling, spinKey, canRoll, onRoll }: DiceProps) {
   const shown = value ?? 1;
   const extra = rolling ? 360 * (4 + (spinKey % 3)) : 0;
   const transform = rolling
@@ -32,21 +34,26 @@ export function Dice({ value, rolling, spinKey }: DiceProps) {
     : FACE_ROT[shown];
 
   return (
-    <div className="dice-scene mx-auto" aria-hidden>
-      <div
-        className={cn("dice-cube", rolling && "animate-pulse")}
-        style={{ transform }}
-      >
-        {([1, 2, 3, 4, 5, 6] as const).map((face) => (
-          <div key={face} className="dice-face" data-face={face}>
-            {Array.from({ length: 9 }, (_, i) => {
-              const slot = i + 1;
-              const on = PIP_SLOTS[face]!.includes(slot);
-              return <span key={slot}>{on ? <span className="pip" /> : null}</span>;
-            })}
-          </div>
-        ))}
-      </div>
-    </div>
+    <button
+      type="button"
+      onClick={onRoll}
+      disabled={!canRoll}
+      aria-label="Lanzar dado"
+      className={cn("dice-hit", canRoll && "dice-ready")}
+    >
+      <span className="dice-scene" aria-hidden>
+        <span className={cn("dice-cube", rolling && "is-rolling")} style={{ transform }}>
+          {([1, 2, 3, 4, 5, 6] as const).map((face) => (
+            <span key={face} className="dice-face" data-face={face}>
+              {Array.from({ length: 9 }, (_, i) => {
+                const slot = i + 1;
+                const on = PIP_SLOTS[face]!.includes(slot);
+                return <span key={slot}>{on ? <span className="pip" /> : null}</span>;
+              })}
+            </span>
+          ))}
+        </span>
+      </span>
+    </button>
   );
 }
