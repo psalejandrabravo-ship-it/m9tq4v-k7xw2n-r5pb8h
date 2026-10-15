@@ -1,6 +1,6 @@
 # Camino Mágico — MIRARIM
 
-Tablero psicoeducativo para mirar, crear e imaginar. Recorre 50 casilleros con preguntas según la edad (4–6, 7–10 y 11–16), de 1 a 6 participantes.
+Tablero psicoeducativo. Recorre 50 casilleros con preguntas según la edad (4 a 8, 9 a 13 y 14 a 18), de 1 a 6 participantes.
 
 ## Uso local
 

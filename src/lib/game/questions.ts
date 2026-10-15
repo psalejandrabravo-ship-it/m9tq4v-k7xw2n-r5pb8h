@@ -1,7 +1,7 @@
 import type { AgeGroup, BuiltInQuestion } from "./types";
 
 export const QUESTIONS: Record<AgeGroup, BuiltInQuestion[]> = {
-  "4-6": [
+  "4-8": [
     { id: 1, emoji: "🐾", area: "identidad", text: "Si fueras un animal, ¿cuál serías? ¿Ese animal es fuerte, rápido o muy cariñoso?" },
     { id: 2, emoji: "🌈", area: "emociones", text: "¿De qué color sería tu corazón hoy?" },
     { id: 3, emoji: "🦸", area: "fortalezas", text: "¿Cuál es tu superpoder secreto que nadie sabe que tienes?" },
@@ -33,7 +33,7 @@ export const QUESTIONS: Record<AgeGroup, BuiltInQuestion[]> = {
     { id: 29, emoji: "🌈", area: "generosidad", text: "Si pudieras enseñarle algo a otro niño, ¿qué le enseñarías?" },
     { id: 30, emoji: "✨", area: "identidad", text: "¿Qué hace que tú seas especial y diferente a los demás?" },
   ],
-  "7-10": [
+  "9-13": [
     { id: 1, emoji: "🐯", area: "identidad", text: "Si fueras un animal que nadie ha visto antes, ¿cómo serías y qué podrías hacer?" },
     { id: 2, emoji: "🌡️", area: "emociones", text: "Del 1 al 10, ¿cómo está tu ánimo hoy? ¿Qué lo subió o lo bajó?" },
     { id: 3, emoji: "🦸", area: "fortalezas", text: "¿Cuál es tu superpoder real, ese que ya tienes aunque no lo parezca?" },
@@ -65,7 +65,7 @@ export const QUESTIONS: Record<AgeGroup, BuiltInQuestion[]> = {
     { id: 29, emoji: "💬", area: "afecto", text: "¿Cómo le demuestras a alguien que te importa?" },
     { id: 30, emoji: "✨", area: "identidad", text: "¿Qué tiene de especial la forma en que tú ves el mundo?" },
   ],
-  "11-16": [
+  "14-18": [
     { id: 1, emoji: "🌀", area: "emociones", text: "Si tu personalidad fuera un clima, ¿qué tiempo haría hoy? ¿Y normalmente?" },
     { id: 2, emoji: "🎭", area: "identidad", text: "¿Hay una versión de ti que casi nadie conoce? ¿Cómo es esa versión?" },
     { id: 3, emoji: "🦸", area: "fortalezas", text: "¿Cuál es tu fortaleza más poderosa que a veces tú mismo/a subestimas?" },
@@ -103,7 +103,7 @@ export const AGE_META: Record<
   AgeGroup,
   { label: string; hint: string; icon: "teddy" | "book" | "spark"; minPx: number }
 > = {
-  "4-6": { label: "4 a 6 años", hint: "Preguntas suaves, con mucho juego", icon: "teddy", minPx: 24 },
-  "7-10": { label: "7 a 10 años", hint: "Curiosidad, logros y amistades", icon: "book", minPx: 20 },
-  "11-16": { label: "11 a 16 años", hint: "Identidad, valores y futuro", icon: "spark", minPx: 18 },
+  "4-8": { label: "4 a 8 años", hint: "Preguntas suaves, con mucho juego", icon: "teddy", minPx: 24 },
+  "9-13": { label: "9 a 13 años", hint: "Curiosidad, logros y amistades", icon: "book", minPx: 20 },
+  "14-18": { label: "14 a 18 años", hint: "Identidad, valores y futuro", icon: "spark", minPx: 18 },
 };

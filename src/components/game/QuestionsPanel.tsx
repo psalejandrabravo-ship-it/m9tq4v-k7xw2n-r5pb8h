@@ -16,9 +16,9 @@ import { cn } from "@/lib/utils";
 const AGE_OPTIONS: { id: CustomAge | "all"; label: string }[] = [
   { id: "all", label: "Todas" },
   { id: "general", label: "General" },
-  { id: "4-6", label: "4 a 6" },
-  { id: "7-10", label: "7 a 10" },
-  { id: "11-16", label: "11 a 16" },
+  { id: "4-8", label: "4 a 8" },
+  { id: "9-13", label: "9 a 13" },
+  { id: "14-18", label: "14 a 18" },
 ];
 
 export function QuestionsPanel({ onClose }: { onClose: () => void }) {
@@ -227,9 +227,9 @@ export function QuestionsPanel({ onClose }: { onClose: () => void }) {
                 className="mt-1 min-h-12 w-full rounded-xl bg-bg px-3 text-sm text-fg"
               >
                 <option value="general">General</option>
-                <option value="4-6">4 a 6 años</option>
-                <option value="7-10">7 a 10 años</option>
-                <option value="11-16">11 a 16 años</option>
+                <option value="4-8">4 a 8 años</option>
+                <option value="9-13">9 a 13 años</option>
+                <option value="14-18">14 a 18 años</option>
               </select>
             </label>
             <label className="text-xs font-semibold text-muted">

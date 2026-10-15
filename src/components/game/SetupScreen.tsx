@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BookOpen, Flame, Heart, Info, ListPlus, Minus, Plus, Sparkles } from "lucide-react";
 import { CreditsModal } from "@/components/brand/CreditsModal";
-import { PurposeStrip, MirarimMark } from "@/components/brand/MirarimMark";
+import { MirarimMark } from "@/components/brand/MirarimMark";
 import { AVATARS } from "@/lib/game/avatars";
 import { audio } from "@/lib/game/audio";
 import { activeCustomCount } from "@/lib/game/customQuestions";
@@ -13,9 +13,9 @@ import { FullscreenButton } from "./FullscreenButton";
 import { Token } from "./Token";
 
 const AGES: { id: AgeGroup; icon: typeof Heart; caption: string }[] = [
-  { id: "4-6", icon: Heart, caption: "4 a 6 años" },
-  { id: "7-10", icon: BookOpen, caption: "7 a 10 años" },
-  { id: "11-16", icon: Flame, caption: "11 a 16 años" },
+  { id: "4-8", icon: Heart, caption: "4 a 8 años" },
+  { id: "9-13", icon: BookOpen, caption: "9 a 13 años" },
+  { id: "14-18", icon: Flame, caption: "14 a 18 años" },
 ];
 
 const PACKS: { id: QuestionPack; label: string; hint: string }[] = [
@@ -83,9 +83,6 @@ export function SetupScreen() {
             <div className="mirarim-clear py-1">
               <MirarimMark variant="horizontal-blanco" height={28} />
             </div>
-          </div>
-          <div className="mx-auto mt-3 max-w-md">
-            <PurposeStrip />
           </div>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-snug text-muted sm:leading-relaxed">
             Recorre un camino de 50 casilleros para el autoconocimiento, la expresión emocional y la

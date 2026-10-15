@@ -8,7 +8,7 @@ const S_STORE = "settings";
 const LS_QUESTIONS = "camino-magico:custom-questions:v1";
 const LS_PACK = "camino-magico:question-pack:v1";
 
-const VALID_AGES = new Set<CustomAge>(["general", "4-6", "7-10", "11-16"]);
+const VALID_AGES = new Set<CustomAge>(["general", "4-8", "9-13", "14-18"]);
 
 export const ACTIVITY_TYPES = ["Pregunta", "Actividad", "Imaginación", "Cuerpo", "Valores"] as const;
 
@@ -110,18 +110,32 @@ function lsWriteQuestions(items: CustomQuestion[]): void {
   localStorage.setItem(LS_QUESTIONS, JSON.stringify(items));
 }
 
+function withCurrentAges(items: CustomQuestion[]): CustomQuestion[] {
+  return items.map((q) => {
+    const age = normalizeAge(String(q.age));
+    return age && age !== q.age ? { ...q, age } : q;
+  });
+}
+
 export async function loadCustomQuestions(): Promise<CustomQuestion[]> {
   if (typeof window === "undefined") return [];
   const fromIdb = await idbGetAll();
+  let items: CustomQuestion[] = [];
   if (fromIdb) {
     if (fromIdb.length === 0) {
       const fromLs = lsReadQuestions();
-      if (fromLs.length) await idbPutAll(fromLs);
-      return fromLs.length ? fromLs : fromIdb;
+      items = fromLs.length ? fromLs : fromIdb;
+    } else {
+      items = fromIdb;
     }
-    return fromIdb;
+  } else {
+    items = lsReadQuestions();
   }
-  return lsReadQuestions();
+  const migrated = withCurrentAges(items);
+  const changed = migrated.some((q, i) => q.age !== items[i]?.age);
+  if (changed) await saveCustomQuestions(migrated);
+  else if (fromIdb && fromIdb.length === 0 && items.length) await idbPutAll(items);
+  return migrated;
 }
 
 export async function saveCustomQuestions(items: CustomQuestion[]): Promise<void> {
@@ -148,9 +162,9 @@ export async function saveQuestionPack(pack: QuestionPack): Promise<void> {
 export function normalizeAge(raw: string): CustomAge | null {
   const v = raw.trim().toLowerCase().replace(/\s+/g, "");
   if (v === "general" || v === "todas" || v === "all") return "general";
-  if (v === "4-6" || v === "4a6" || v === "4a6años") return "4-6";
-  if (v === "7-10" || v === "7a10" || v === "7a10años") return "7-10";
-  if (v === "11-16" || v === "11a16" || v === "11a16años") return "11-16";
+  if (v === "4-8" || v === "4a8" || v === "4a8años" || v === "4-6" || v === "4a6" || v === "4a6años") return "4-8";
+  if (v === "9-13" || v === "9a13" || v === "9a13años" || v === "7-10" || v === "7a10" || v === "7a10años") return "9-13";
+  if (v === "14-18" || v === "14a18" || v === "14a18años" || v === "4-18" || v === "4a18" || v === "4a18años" || v === "11-16" || v === "11a16" || v === "11a16años") return "14-18";
   return VALID_AGES.has(raw.trim() as CustomAge) ? (raw.trim() as CustomAge) : null;
 }
 
@@ -229,7 +243,7 @@ export function parseCsv(
     const ageRaw = (cols[aCol] ?? "").trim();
     const age = ageRaw ? normalizeAge(ageRaw) : defaultAge;
     if (!age) {
-      issues.push({ line: i + 1, message: `Edad no válida: «${ageRaw}». Usa general, 4-6, 7-10 u 11-16.` });
+      issues.push({ line: i + 1, message: `Edad no válida: «${ageRaw}». Usa general, 4-8, 9-13 o 14-18.` });
       continue;
     }
     const activityType = typeIdx >= 0 ? (cols[typeIdx] ?? "Pregunta").trim() : "Pregunta";

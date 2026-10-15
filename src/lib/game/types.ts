@@ -1,4 +1,4 @@
-export type AgeGroup = "4-6" | "7-10" | "11-16";
+export type AgeGroup = "4-8" | "9-13" | "14-18";
 export type CustomAge = AgeGroup | "general";
 export type QuestionPack = "builtin" | "custom" | "both";
 
