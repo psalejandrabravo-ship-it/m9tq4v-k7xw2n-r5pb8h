@@ -48,7 +48,7 @@ export function Dice({ value, rolling, spinKey, canRoll, onRoll }: DiceProps) {
               {Array.from({ length: 9 }, (_, i) => {
                 const slot = i + 1;
                 const on = PIP_SLOTS[face]!.includes(slot);
-                return <span key={slot}>{on ? <span className="pip" /> : null}</span>;
+                return <span key={slot} className={on ? "pip" : "pip-empty"} />;
               })}
             </span>
           ))}
