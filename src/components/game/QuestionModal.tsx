@@ -1,7 +1,6 @@
-import { Check, RefreshCw, Volume2 } from "lucide-react";
+import { Check, RefreshCw } from "lucide-react";
 import { AGE_META } from "@/lib/game/questions";
 import { useGame } from "@/lib/game/store";
-import { speakQuestion, stopSpeaking } from "@/lib/game/tts";
 import { avatarById } from "@/lib/game/avatars";
 import { Token } from "./Token";
 
@@ -45,18 +44,7 @@ export function QuestionModal() {
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
           <button
             type="button"
-            onClick={() => speakQuestion(q.text)}
-            className="pressable flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-stone px-3 font-semibold text-ink"
-          >
-            <Volume2 className="size-4" />
-            Escuchar pregunta
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              stopSpeaking();
-              changeQuestion();
-            }}
+            onClick={changeQuestion}
             className="pressable flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-stone px-3 font-semibold text-ink shadow-[0_0_0_1px_rgba(42,36,96,0.18)]"
           >
             <RefreshCw className="size-4" />
